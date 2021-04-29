@@ -12,14 +12,15 @@ import (
 	"github.com/meshplus/bitxhub-kit/storage/leveldb"
 	_ "github.com/meshplus/bitxhub/imports"
 	"github.com/meshplus/bitxhub/internal/executor"
+	"github.com/meshplus/bitxhub/internal/executor/oracle/appchain"
 	"github.com/meshplus/bitxhub/internal/ledger"
 	"github.com/meshplus/bitxhub/internal/ledger/genesis"
 	"github.com/meshplus/bitxhub/internal/loggers"
-	orderplg "github.com/meshplus/bitxhub/internal/plugins"
 	"github.com/meshplus/bitxhub/internal/repo"
 	"github.com/meshplus/bitxhub/internal/router"
 	"github.com/meshplus/bitxhub/internal/storages"
 	"github.com/meshplus/bitxhub/pkg/order"
+	"github.com/meshplus/bitxhub/pkg/order/etcdraft"
 	"github.com/meshplus/bitxhub/pkg/peermgr"
 	"github.com/sirupsen/logrus"
 )
@@ -51,7 +52,7 @@ func NewBitXHub(rep *repo.Repo) (*BitXHub, error) {
 
 	m := rep.NetworkConfig.GetVpInfos()
 
-	order, err := orderplg.New(
+	order, err := etcdraft.NewNode(
 		order.WithRepoRoot(repoRoot),
 		order.WithStoragePath(repo.GetStoragePath(repoRoot, "order")),
 		order.WithPluginPath(rep.Config.Plugin),
@@ -108,6 +109,11 @@ func GenerateBitXHubWithoutOrder(rep *repo.Repo) (*BitXHub, error) {
 		return nil, fmt.Errorf("blockfile initialize: %w", err)
 	}
 
+	appchainClient, err := appchain.NewAppchainClient(repo.GetStoragePath(repoRoot, "eth_storage"), loggers.Logger(loggers.Executor))
+	if err != nil {
+		return nil, err
+	}
+
 	// 0. load ledger
 	rwLdg, err := ledger.New(rep, bcStorage, ldb, bf, nil, loggers.Logger(loggers.Executor))
 	if err != nil {
@@ -128,12 +134,12 @@ func GenerateBitXHubWithoutOrder(rep *repo.Repo) (*BitXHub, error) {
 	}
 
 	// 1. create executor and view executor
-	txExec, err := executor.New(rwLdg, loggers.Logger(loggers.Executor), *rep.Config)
+	txExec, err := executor.New(rwLdg, loggers.Logger(loggers.Executor), appchainClient, *rep.Config)
 	if err != nil {
 		return nil, fmt.Errorf("create BlockExecutor: %w", err)
 	}
 
-	viewExec, err := executor.New(viewLdg, loggers.Logger(loggers.Executor), *rep.Config)
+	viewExec, err := executor.New(viewLdg, loggers.Logger(loggers.Executor), appchainClient, *rep.Config)
 	if err != nil {
 		return nil, fmt.Errorf("create ViewExecutor: %w", err)
 	}
