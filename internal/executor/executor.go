@@ -17,6 +17,7 @@ import (
 	"github.com/meshplus/bitxhub/internal/executor/contracts"
 	"github.com/meshplus/bitxhub/internal/ledger"
 	"github.com/meshplus/bitxhub/internal/model/events"
+	"github.com/meshplus/bitxhub/internal/repo"
 	"github.com/meshplus/bitxhub/pkg/proof"
 	"github.com/meshplus/bitxhub/pkg/vm/boltvm"
 	"github.com/sirupsen/logrus"
@@ -51,13 +52,14 @@ type BlockExecutor struct {
 	evm         *vm.EVM
 	evmChainCfg *params.ChainConfig
 	gasLimit    uint64
+	config      repo.Config
 }
 
 // New creates executor instance
-func New(chainLedger ledger.Ledger, logger logrus.FieldLogger, typ string, gasLimit uint64) (*BlockExecutor, error) {
-	ibtpVerify := proof.New(chainLedger, logger)
+func New(chainLedger ledger.Ledger, logger logrus.FieldLogger, config repo.Config) (*BlockExecutor, error) {
 
-	txsExecutor, err := agency.GetExecutorConstructor(typ)
+	ibtpVerify := proof.New(chainLedger, logger)
+	txsExecutor, err := agency.GetExecutorConstructor(config.Executor.Type)
 	if err != nil {
 		return nil, err
 	}
@@ -78,12 +80,13 @@ func New(chainLedger ledger.Ledger, logger logrus.FieldLogger, typ string, gasLi
 		currentBlockHash: chainLedger.GetChainMeta().BlockHash,
 		wasmInstances:    make(map[string]wasmer.Instance),
 		evmChainCfg:      newEVMChainCfg(),
-		gasLimit:         gasLimit,
+		config:           config,
+		gasLimit:         config.GasLimit,
 	}
 
 	blockExecutor.evm = newEvm(1, uint64(0), blockExecutor.evmChainCfg, blockExecutor.ledger.StateDB())
 
-	blockExecutor.txsExecutor = txsExecutor(blockExecutor.applyTx, registerBoltContracts, logger)
+	blockExecutor.txsExecutor = txsExecutor(blockExecutor.applyTx, blockExecutor.registerBoltContracts, logger)
 
 	return blockExecutor, nil
 }
@@ -222,7 +225,7 @@ func (exec *BlockExecutor) persistData() {
 	}
 }
 
-func registerBoltContracts() map[string]agency.Contract {
+func (exec *BlockExecutor) registerBoltContracts() map[string]agency.Contract {
 	boltContracts := []*boltvm.BoltContract{
 		{
 			Enabled:  true,
@@ -277,6 +280,12 @@ func registerBoltContracts() map[string]agency.Contract {
 			Name:     "governance service",
 			Address:  constant.GovernanceContractAddr.Address().String(),
 			Contract: &contracts.Governance{},
+		},
+		{
+			Enabled:  true,
+			Name:     "ethereum header service",
+			Address:  constant.EthHeaderMgrContractAddr.Address().String(),
+			Contract: contracts.NewEthHeaderManager(exec.config.RepoRoot, exec.logger),
 		},
 	}
 
