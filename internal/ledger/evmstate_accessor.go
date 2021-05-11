@@ -225,3 +225,25 @@ func NewMessage(tx *pb.EthTransaction) etherTypes.Message {
 
 	return etherTypes.NewMessage(from, to, nonce, amount, gas, gasPrice, data, accessList, checkNonce)
 }
+
+func NewMessageFromBxh(tx *pb.BxhTransaction) etherTypes.Message {
+	from := common.BytesToAddress(tx.GetFrom().Bytes())
+	var to *common.Address
+	if tx.GetTo() != nil {
+		toAddr := common.BytesToAddress(tx.GetTo().Bytes())
+		to = &toAddr
+	}
+	nonce := tx.GetNonce()
+	amount := new(big.Int).SetUint64(tx.GetAmount())
+	gas := tx.GetGas()
+	gasPrice := tx.GetGasPrice()
+	data := tx.GetPayload()
+	accessList := new(etherTypes.AccessList)
+
+	checkNonce := true
+	if v, _, _ := tx.GetRawSignature(); v == nil {
+		checkNonce = false
+	}
+
+	return etherTypes.NewMessage(from, to, nonce, amount, gas, gasPrice, data, *accessList, checkNonce)
+}

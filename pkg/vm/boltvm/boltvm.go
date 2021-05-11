@@ -8,6 +8,7 @@ import (
 	"github.com/meshplus/bitxhub-core/agency"
 	"github.com/meshplus/bitxhub-core/boltvm"
 	"github.com/meshplus/bitxhub-core/validator"
+	evm "github.com/meshplus/bitxhub-kit/evm"
 	"github.com/meshplus/bitxhub-model/pb"
 	"github.com/meshplus/bitxhub/internal/executor/contracts"
 	"github.com/meshplus/bitxhub/pkg/vm"
@@ -17,15 +18,17 @@ var _ vm.VM = (*BoltVM)(nil)
 
 type BoltVM struct {
 	ctx       *vm.Context
+	evm       *evm.EVM
 	ve        validator.Engine
 	contracts map[string]agency.Contract
 }
 
 // New creates a blot vm object
-func New(ctx *vm.Context, ve validator.Engine, contracts map[string]agency.Contract) *BoltVM {
+func New(ctx *vm.Context, ve validator.Engine, evm *evm.EVM, contracts map[string]agency.Contract) *BoltVM {
 	return &BoltVM{
 		ctx:       ctx,
 		ve:        ve,
+		evm:       evm,
 		contracts: contracts,
 	}
 }

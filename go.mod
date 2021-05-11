@@ -68,4 +68,8 @@ replace github.com/hyperledger/fabric => github.com/hyperledger/fabric v2.0.1+in
 
 replace github.com/meshplus/bitxhub-model => ../bitxhub-model
 
+replace (
+	github.com/meshplus/bitxhub-core => ../bitxhub-core
+)
+
 go 1.13

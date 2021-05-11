@@ -345,29 +345,12 @@ func (b *BrokerAPI) GetSign(content string, typ pb.GetMultiSignsRequest_Type) (s
 		}
 
 		return b.bxh.GetPrivKey().Address, sign, nil
-	case pb.GetMultiSignsRequest_MINT:
-		return b.handleMultiSignsMintReq(content)
 	case pb.GetMultiSignsRequest_BURN:
 		return b.handleMultiSignsBurnReq(content)
 	default:
 		return "", nil, fmt.Errorf("unsupported get sign type")
 	}
 
-}
-
-func (b *BrokerAPI) handleMultiSignsMintReq(id string) (string, []byte, error) {
-	ok, _ := b.bxh.Ledger.GetState(constant.EthHeaderMgrContractAddr.Address(), []byte(contracts.MintKey(id)))
-	if !ok {
-		return "", nil, fmt.Errorf("cannot find minter record with id %s", id)
-	}
-
-	hash := common.HexToHash(id)
-	key := b.bxh.GetPrivKey()
-	sign, err := key.PrivKey.Sign(hash[:])
-	if err != nil {
-		return "", nil, fmt.Errorf("bitxhub sign: %w", err)
-	}
-	return key.Address, sign, nil
 }
 
 func (b *BrokerAPI) handleMultiSignsBurnReq(hash string) (string, []byte, error) {
