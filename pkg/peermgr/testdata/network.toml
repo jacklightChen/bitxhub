@@ -6,10 +6,10 @@ new = false
   account = ""
   hosts = ["/ip4/127.0.0.1/tcp/5002/p2p/"]
   id = 2
-  pid = "QmTmrbwzT668G4yioSRUmMYk2JmaSnHNee462S66vFBv5H"
+  pid = "QmNSjHrCMSnfV2GomMs3mdq9td3s7XLA5bRgpSK9H1KPPw"
 
 [[nodes]]
   account = ""
   hosts = ["/ip4/127.0.0.1/tcp/5003/p2p/"]
   id = 3
-  pid = "QmQ6NwDquCM1xVxmbGXobuYVq5i4xtHTPF3UdxXXef4QpU"
+  pid = "QmQiGnqo9hiMbD1yrP5XPu6uhywpifCH9uH7W4WQUwZ393"
