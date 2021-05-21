@@ -27,7 +27,7 @@ func NewMessage(tx *pb.EthTransaction) types.Message {
 	gas := tx.GetGas()
 	gasPrice := tx.GetGasPrice()
 	data := tx.GetPayload()
-	accessList := tx.AccessList()
+	accessList := tx.GetInner().GetAccessList()
 	return types.NewMessage(from, &to, nonce, amount, gas, gasPrice, data, accessList, true)
 }
 

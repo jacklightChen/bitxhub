@@ -216,7 +216,7 @@ func NewMessage(tx *pb.EthTransaction) etherTypes.Message {
 	gas := tx.GetGas()
 	gasPrice := tx.GetGasPrice()
 	data := tx.GetPayload()
-	accessList := tx.AccessList()
+	accessList := tx.GetInner().GetAccessList()
 
 	checkNonce := true
 	if v, _, _ := tx.GetRawSignature(); v == nil {

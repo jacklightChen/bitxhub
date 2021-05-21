@@ -868,10 +868,14 @@ github.com/meshplus/bitxhub-model v1.1.2-0.20201021152621-0b3c17c54b23/go.mod h1
 github.com/meshplus/bitxhub-model v1.1.2-0.20210409090411-de23bd385c5f/go.mod h1:x3H+TL24wcByzHegenLfs+5PQkQGNsk8eCm31QJMa+Q=
 github.com/meshplus/bitxhub-model v1.2.1-0.20210511081145-6ae7a279e2f0 h1:6+Ueje0ghLEOgY/T6uIlTffNGjApM/1/n2FrAdmHBKw=
 github.com/meshplus/bitxhub-model v1.2.1-0.20210511081145-6ae7a279e2f0/go.mod h1:2zFpbwQ/2y7JiTCsnLYSa3XTF1jTz0ElsQJhUksj2EE=
+github.com/meshplus/bitxhub-model v1.2.1-0.20210521155433-aa0c2f4c3544 h1:pSMivokvO9bTlL2F0DoNihJFCjz4wI7zIMHgTbYjzN0=
+github.com/meshplus/bitxhub-model v1.2.1-0.20210521155433-aa0c2f4c3544/go.mod h1:DptYSB9Sm2rpzINwA149CDtXTmlNoEcN24ZlBUngzGU=
 github.com/meshplus/bitxid v0.0.0-20210412025850-e0eaf0f9063a h1:c4ESPDa60Jd4zfzZIGGTyzhfaVM3vKN+xV2G9BwIDGQ=
 github.com/meshplus/bitxid v0.0.0-20210412025850-e0eaf0f9063a/go.mod h1:vAldSRfDe2Qo7exsSTbchVmZWXPY7fhWQrRw18QJHho=
 github.com/meshplus/did-registry v0.0.0-20210413035015-509c6c3a0bae h1:E4iaFwHAg1ScyiU9Bz3RY0wjfXNZzPH3O43DBTl9iWg=
 github.com/meshplus/did-registry v0.0.0-20210413035015-509c6c3a0bae/go.mod h1:tNbFVcS1TX5hnn+2o42byYK/W1cMnYuLdaCPFr+9Umk=
+github.com/meshplus/eth-kit v0.0.0-20210521154949-ac7af5288e2d h1:aWuXUUuvvZ1uQdgAe2H3RZUDohnUryhBmttZFO8m4Dc=
+github.com/meshplus/eth-kit v0.0.0-20210521154949-ac7af5288e2d/go.mod h1:T2rvzMxoDsn8xg5BhWLXMam8l5i+kOm0okrm1kzfOrk=
 github.com/meshplus/go-libp2p-cert v0.0.0-20210120021632-1578cf63e06a h1:eg1BDjSOsz3cdH49kPE8c2XnIFlLTPEMJLqpofV/OEY=
 github.com/meshplus/go-libp2p-cert v0.0.0-20210120021632-1578cf63e06a/go.mod h1:rS4AYMqKypLn2IPEnHICP//V2v16SZo4CWUbwMdihl0=
 github.com/meshplus/go-libp2p-cert v0.0.0-20210125063330-7c25fd5b7a49 h1:F8dpLJZW6FxqinAQcZKTkoymZgxnqlNvTebNqWVMEYI=
@@ -1340,6 +1344,8 @@ golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPh
 golang.org/x/crypto v0.0.0-20201117144127-c1f2f97bffc9/go.mod h1:jdWPYTVW3xRLrWPugEBEK3UY2ZEsg3UU495nc5E+M+I=
 golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad h1:DN0cp81fZ3njFcrLCytUHRSUkqBjfTo4Tx9RJTWs0EY=
 golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad/go.mod h1:jdWPYTVW3xRLrWPugEBEK3UY2ZEsg3UU495nc5E+M+I=
+golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a h1:kr2P4QFmQr29mSLA43kwrOcgcReGTfbE9N577tCTuBc=
+golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a/go.mod h1:P+XmwS30IXTQdn5tA2iutPOUgjI07+tq3H3K9MVA1s8=
 golang.org/x/exp v0.0.0-20180321215751-8460e604b9de/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=
 golang.org/x/exp v0.0.0-20180807140117-3d87b88a115f/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=
 golang.org/x/exp v0.0.0-20190121172915-509febef88a4/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=
@@ -1417,6 +1423,8 @@ golang.org/x/net v0.0.0-20201110031124-69a78807bb2b h1:uwuIcX0g4Yl1NC5XAz37xsr2l
 golang.org/x/net v0.0.0-20201110031124-69a78807bb2b/go.mod h1:sp8m0HH+o8qH0wwXwYZr8TS3Oi6o0r6Gce1SSxlDquU=
 golang.org/x/net v0.0.0-20210220033124-5f55cee0dc0d h1:1aflnvSoWWLI2k/dMUAl5lvU1YO4Mb4hz0gh+1rjcxU=
 golang.org/x/net v0.0.0-20210220033124-5f55cee0dc0d/go.mod h1:m0MpNAwzfU5UDzcl9v0D8zg8gWTRqZa9RBIspLL5mdg=
+golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 h1:qWPm9rbaAMKs8Bq/9LRpbMqxWRVUAQwMI9fVrssnTfw=
+golang.org/x/net v0.0.0-20210226172049-e18ecbb05110/go.mod h1:m0MpNAwzfU5UDzcl9v0D8zg8gWTRqZa9RBIspLL5mdg=
 golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be/go.mod h1:N/0e6XlmueqKjAGxoOufVs8QHGRruUQn6yWY3a++T0U=
 golang.org/x/oauth2 v0.0.0-20190226205417-e64efc72b421/go.mod h1:gOpvHmFTYa4IltrdGE7lF6nIHvwfUNPOp7c8zoXwtLw=
 golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45/go.mod h1:gOpvHmFTYa4IltrdGE7lF6nIHvwfUNPOp7c8zoXwtLw=

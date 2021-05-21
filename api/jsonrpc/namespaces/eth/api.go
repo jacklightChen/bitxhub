@@ -20,6 +20,7 @@ import (
 	rpctypes "github.com/meshplus/bitxhub/api/jsonrpc/types"
 	"github.com/meshplus/bitxhub/internal/coreapi/api"
 	"github.com/meshplus/bitxhub/internal/repo"
+	types2 "github.com/meshplus/eth-kit/types"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -301,7 +302,7 @@ func (e *revertError) ErrorData() interface{} {
 }
 
 // Call performs a raw contract call.
-func (api *PublicEthereumAPI) Call(args pb.CallArgs, blockNr rpc.BlockNumber, _ *map[common.Address]rpctypes.Account) (hexutil.Bytes, error) {
+func (api *PublicEthereumAPI) Call(args types2.CallArgs, blockNr rpc.BlockNumber, _ *map[common.Address]rpctypes.Account) (hexutil.Bytes, error) {
 	api.logger.Debugf("eth_call, args: %s, block number: %d", args, blockNr.Int64())
 
 	// Determine the highest gas limit can be used during call.
@@ -334,7 +335,7 @@ func (api *PublicEthereumAPI) Call(args pb.CallArgs, blockNr rpc.BlockNumber, _ 
 // EstimateGas returns an estimate of gas usage for the given smart contract call.
 // It adds 2,000 gas to the returned value instead of using the gas adjustment
 // param from the SDK.
-func (api *PublicEthereumAPI) EstimateGas(args pb.CallArgs) (hexutil.Uint64, error) {
+func (api *PublicEthereumAPI) EstimateGas(args types2.CallArgs) (hexutil.Uint64, error) {
 	api.logger.Debugf("eth_estimateGas, args: %s", args)
 
 	// Determine the highest gas limit can be used during the estimation.
@@ -647,7 +648,7 @@ func newRPCTransaction(tx pb.Transaction, blockHash common.Hash, blockNumber uin
 		result.TransactionIndex = (*hexutil.Uint64)(&index)
 	}
 	if tx.GetType() == ethtypes.AccessListTxType {
-		al := tx.(*pb.EthTransaction).AccessList()
+		al := tx.(*pb.EthTransaction).GetInner().GetAccessList()
 		result.Accesses = &al
 		result.ChainID = (*hexutil.Big)(tx.GetChainID())
 	}
